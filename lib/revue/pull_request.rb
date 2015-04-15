@@ -12,7 +12,7 @@ module Revue
 
     def self.stash
       @stash ||= Stash::Client.new(
-        scheme: 'https',
+        scheme: Revue.config.ssl ? 'https' : 'http',
         host: 'stash.' + Revue.config.domain,
         credentials: [
           Revue.config.username,
