@@ -6,12 +6,21 @@ module Revue
 
     validate :exists_on_jira
 
-    def self.jira
-      @jira ||= JIRA::Client.new(
-        site: URI.join('jira', Revue.config.domain),
-        username: Revue.config.username,
-        password: Revue.config.password
-      )
+    class << self
+      def jira
+        @jira ||= JIRA::Client.new(
+          site: jira_hostname,
+          username: Revue.config.username,
+          password: Revue.config.password
+        )
+      end
+
+      private
+
+      def jira_hostname
+        scheme = Revue.config.ssl ? 'https' : 'http'
+        "#{scheme}://jira.#{Revue.config.domain}"
+      end
     end
 
     def save
