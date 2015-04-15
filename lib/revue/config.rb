@@ -18,7 +18,7 @@ module Revue
 
     def method_missing(method, *arguments)
       return super unless respond_to? method
-      env["#{method}".upcase] || yaml["#{method}"]
+      env[var(method)] || yaml["#{method}"]
     end
 
     def respond_to?(method)

@@ -24,6 +24,7 @@ module Revue
       num = 0
 
       PullRequest.each do |pull_request|
+        logger.debug "Working with #{pull_request}"
         if pull_request.tickets.any?
           pull_request.tickets.each do |ticket|
             user = pull_request.reviewers.first
@@ -41,7 +42,7 @@ module Revue
         end
       end
 
-      logger.info "#{num} pull requests moved as of #{Time.now}"
+      logger.info "#{num} pull requests moved as of #{Time.now}" unless num == 0
     end
   end
 end

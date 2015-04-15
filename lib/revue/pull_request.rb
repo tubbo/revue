@@ -12,10 +12,11 @@ module Revue
 
     def self.stash
       @stash ||= Stash::Client.new(
-        host: URI.join('stash', Revue.config.domain),
+        scheme: 'https',
+        host: 'stash.' + Revue.config.domain,
         credentials: [
           Revue.config.username,
-          Revue.config.passwrod
+          Revue.config.password
         ].join(':'),
       )
     end
